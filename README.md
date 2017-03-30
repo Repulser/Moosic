@@ -9,3 +9,4 @@
 4. Create a bot token, a good guide is [Here](https://twentysix26.github.io/Red-Docs/red_guide_bot_accounts/#creating-a-new-bot-account)
 5. Open `config.json` and change the token and volume fields.
 6. Inside `config.json` edit the Channel ID field to a voice channel ID, the channels ID can be grabbed using discord developer mode (Settings -> Appearance) Then you can just Right click any voice channel and Copy ID.
+7. Run the bot using the bat file if you are using windows and the sh file for linux.
