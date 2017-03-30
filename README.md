@@ -2,7 +2,7 @@
 
 **Host your own 24/7 Discord Music Bot!**
 
-## Instructions:
+## Instructions
 1. Install java. (Use google)
 2. Get the latest version from [Here](https://github.com/Repulser/Moosic/releases/)I recommend you get the full.zip then unpack it for ease of use.
 3. Place a list of individual song urls inside `songs.txt`, Supported formats include youtube and soundcloud.
