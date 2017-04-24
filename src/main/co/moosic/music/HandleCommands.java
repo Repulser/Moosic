@@ -10,8 +10,7 @@ import java.awt.*;
 public class HandleCommands {
     @SubscribeEvent
     public void onGuildMessage(GuildMessageReceivedEvent e) {
-        if (!e.getChannel().getId().equals(Login.textChannelid)) return;
-        if (e.getMessage().getContent().toLowerCase().startsWith(Config.command_prefix + "np")) {
+        if (e.getMessage().getContent().toLowerCase().startsWith(Config.command_prefix.toLowerCase() + "np")) {
             AudioTrack PlayingTrack = Login.scheduler.player.getPlayingTrack();
             e.getChannel().sendMessage(new EmbedBuilder()
                     .setAuthor("Now Playing in " + e.getJDA().getSelfUser().getName(), PlayingTrack.getInfo().uri, e.getJDA().getSelfUser().getAvatarUrl())
