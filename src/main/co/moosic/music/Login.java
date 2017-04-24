@@ -1,5 +1,6 @@
 package co.moosic.music;
 
+import com.kaaz.configuration.ConfigurationBuilder;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
@@ -13,6 +14,7 @@ import net.dv8tion.jda.core.hooks.AnnotatedEventManager;
 import net.dv8tion.jda.core.managers.AudioManager;
 
 import javax.security.auth.login.LoginException;
+import java.io.File;
 
 
 public class Login {
@@ -22,6 +24,12 @@ public class Login {
     static TrackScheduler scheduler;
 
     public static void main(String args[]) {
+        try {
+            new ConfigurationBuilder(Config.class, new File("bot.cfg")).build();
+        } catch (Exception exc) {
+            exc.printStackTrace();
+            System.exit(1);
+        }
         try {
             Jda = new JDABuilder(AccountType.BOT)
                     .setToken(Config.discord_token)

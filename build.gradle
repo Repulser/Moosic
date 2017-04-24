@@ -7,12 +7,13 @@ sourceCompatibility = 1.8
 
 repositories {
     jcenter()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
-    compile 'com.sedmelluq:lavaplayer:1.2.34'
-    compile 'net.dv8tion:JDA:3.0.0_165'
-    compile 'com.google.code.gson:gson:2.3.1'
+    compile 'com.sedmelluq:lavaplayer:1.2.36'
+    compile 'net.dv8tion:JDA:3.0.0_185'
+    compile 'com.github.kaaz:configurationbuilder:afbc25a5d2'
 
 }
