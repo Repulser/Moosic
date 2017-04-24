@@ -19,7 +19,7 @@ import java.util.Scanner;
 import static co.moosic.music.Login.playerManager;
 
 public class TrackScheduler extends AudioEventAdapter {
-    private final AudioPlayer player;
+    public final AudioPlayer player;
     public List<String> autoplay = new ArrayList<>();
     private static final Random RANDOM = new Random(System.currentTimeMillis());
 
@@ -30,7 +30,17 @@ public class TrackScheduler extends AudioEventAdapter {
         }
     }
 
-    public void nextTrack() {
+    @Override
+    public void onTrackException(AudioPlayer player, AudioTrack track, FriendlyException exception) {
+        nextTrack();
+    }
+
+    @Override
+    public void onTrackStuck(AudioPlayer player, AudioTrack track, long thresholdMs) {
+        nextTrack();
+    }
+
+    void nextTrack() {
         try (Scanner scanner = new Scanner(new File("songs.txt"))) {
             if (!autoplay.isEmpty()) autoplay.clear();
             while (scanner.hasNextLine()) {
@@ -49,7 +59,7 @@ public class TrackScheduler extends AudioEventAdapter {
             public void trackLoaded(AudioTrack track) {
                 System.out.println("Loaded! " + track.getInfo().title);
                 player.startTrack(track, false);
-                Login.Jda.getPresence().setGame(Game.of(track.getInfo().title));
+                Login.Jda.getPresence().setGame(Game.of("▶ " + track.getInfo().title));
             }
 
             @Override
