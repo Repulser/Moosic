@@ -1,4 +1,4 @@
-package co.moosic.music;
+package moosic.music;
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -7,13 +7,14 @@ import net.dv8tion.jda.core.hooks.SubscribeEvent;
 
 import java.awt.*;
 
+
 public class HandleCommands {
     @SubscribeEvent
     public void onGuildMessage(GuildMessageReceivedEvent e) {
-        if (e.getMessage().getContent().toLowerCase().startsWith(Config.command_prefix.toLowerCase() + "np")) {
+        if (e.getMessage().getRawContent().toLowerCase().startsWith(Config.command_prefix.toLowerCase() + "np")) {
             AudioTrack PlayingTrack = Login.scheduler.player.getPlayingTrack();
             e.getChannel().sendMessage(new EmbedBuilder()
-                    .setAuthor("Now Playing in " + e.getJDA().getSelfUser().getName(), PlayingTrack.getInfo().uri, e.getJDA().getSelfUser().getAvatarUrl())
+                    .setAuthor("Now Playing", PlayingTrack.getInfo().uri, null)
                     .setColor(Color.GREEN)
                     .addField("Song Name", PlayingTrack.getInfo().title, true)
                     .addField("Channel", PlayingTrack.getInfo().author, true)

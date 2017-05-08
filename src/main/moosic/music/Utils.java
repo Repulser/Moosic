@@ -1,4 +1,4 @@
-package co.moosic.music;
+package moosic.music;
 
 import java.util.concurrent.TimeUnit;
 

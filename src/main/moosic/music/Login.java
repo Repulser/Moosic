@@ -1,4 +1,4 @@
-package co.moosic.music;
+package moosic.music;
 
 import com.kaaz.configuration.ConfigurationBuilder;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
@@ -19,7 +19,6 @@ import java.io.File;
 
 public class Login {
     static AudioPlayerManager playerManager;
-    static String textChannelid;
     static JDA Jda;
     static TrackScheduler scheduler;
 
@@ -36,6 +35,7 @@ public class Login {
                     .buildBlocking();
             Jda.setEventManager(new AnnotatedEventManager());
             Jda.addEventListener(new HandleCommands());
+            System.out.println("User this url to add me:\n" + "https://discordapp.com/oauth2/authorize?client_id=" + Jda.getSelfUser().getId() + "&scope=bot");
         } catch (LoginException | RateLimitedException | InterruptedException e) {
             e.printStackTrace();
             System.exit(1);

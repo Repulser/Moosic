@@ -1,4 +1,4 @@
-package co.moosic.music;
+package moosic.music;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.playback.AudioFrame;
