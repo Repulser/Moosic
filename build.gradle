@@ -1,18 +1,57 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '1.2.4'
+    id 'com.sedmelluq.jdaction' version '1.0.1'
+}
+
 group 'Moosic'
 version '3.0'
 
-apply plugin: 'java'
+mainClassName = "moosic.music.Login"
 
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main']
+        }
+    }
+}
 
 repositories {
     jcenter()
     maven { url 'https://jitpack.io' }
 }
 
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile 'com.sedmelluq:lavaplayer:1.2.36'
-    compile 'net.dv8tion:JDA:3.0.0_191'
+    compile group: 'com.sedmelluq', name: 'lavaplayer', version: '1.2.39'
+    compile group: 'net.dv8tion', name: 'JDA', version: '3.0.0_202'
     compile 'com.github.kaaz:configurationbuilder:afbc25a5d2'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.5'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+build.dependsOn shadowJar
+
+artifacts {
+    archives shadowJar
+}
+
+jar {
+    classifier = "nodeps"
+}
+
+shadowJar {
+    classifier = ""
 }

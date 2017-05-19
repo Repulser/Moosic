@@ -4,16 +4,15 @@
     <output url="file://$MODULE_DIR$/../../build/classes/main" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../src/main">
-      <sourceFolder url="file://$MODULE_DIR$/../../src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../../src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../../src/main" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../src/main/resources" type="java-resource" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Gradle: com.sedmelluq:lavaplayer:1.2.36" level="project" />
-    <orderEntry type="library" name="Gradle: net.dv8tion:JDA:3.0.0_191" level="project" />
+    <orderEntry type="library" name="Gradle: com.sedmelluq:lavaplayer:1.2.39" level="project" />
+    <orderEntry type="library" name="Gradle: net.dv8tion:JDA:3.0.0_202" level="project" />
     <orderEntry type="library" name="Gradle: com.github.kaaz:configurationbuilder:afbc25a5d2" level="project" />
-    <orderEntry type="library" name="Gradle: com.sedmelluq:lavaplayer-common:1.0.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.sedmelluq:lavaplayer-common:1.0.5" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.22" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpclient:4.5.2" level="project" />
     <orderEntry type="library" name="Gradle: commons-io:commons-io:2.5" level="project" />
