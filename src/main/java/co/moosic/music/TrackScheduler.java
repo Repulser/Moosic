@@ -1,7 +1,8 @@
-package moosic.music;
+package co.moosic.music;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
@@ -15,15 +16,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
-
-import static moosic.music.Login.playerManager;
+import java.util.concurrent.ExecutionException;
+import java.util.regex.Pattern;
 
 public class TrackScheduler extends AudioEventAdapter {
-    final AudioPlayer player;
+    AudioPlayer player;
+    private AudioPlayerManager playerManager;
     private List<String> AutoPlay = new ArrayList<>();
-    private static final Random RANDOM = new Random(System.currentTimeMillis());
+    private final Random RANDOM = new Random();
+    //Thanks sedmelluq
+    private static final Pattern[] playlistPatterns = new Pattern[]{
+            Pattern.compile("^((PL|LL|FL|UU)[a-zA-Z0-9_-]+)$"),
+            Pattern.compile("^(?:http://|https://|)(?:www\\.|)youtube.com/playlist\\?list=((PL|LL|FL|UU)[a-zA-Z0-9_-]+)(?:\\?.*|&.*|)$")
+    };
 
-    TrackScheduler(AudioPlayer player) {
+    TrackScheduler(AudioPlayer player, AudioPlayerManager playerManager) {
         try (Scanner scanner = new Scanner(new File("songs.txt"))) {
             while (scanner.hasNextLine()) {
                 AutoPlay.add(scanner.nextLine());
@@ -32,9 +39,63 @@ public class TrackScheduler extends AudioEventAdapter {
             System.out.println("Could not find songs.txt Exiting.");
             System.exit(1);
         }
+        this.playerManager = playerManager;
         this.player = player;
+        proccessTracks();
         if (player.getPlayingTrack() == null) {
             nextTrack();
+        }
+    }
+
+    private void proccessTracks() {
+        System.out.println("Processing " + AutoPlay.size() + " songs");
+        for (String song : new ArrayList<>(AutoPlay)) {
+            if (isPlaylist(song)) {
+                parsePlaylist(song);
+            }
+        }
+        System.out.println(AutoPlay.size() + " songs loaded, starting");
+    }
+
+    private boolean isPlaylist(String song) {
+        for (Pattern pattern : Patterns.validTrackPatterns) {
+            if (pattern.matcher(song).matches()) {
+                return Patterns.playlistEmbeddedPattern.matcher(song).find() || Patterns.mixEmbeddedPattern.matcher(song).find();
+            }
+        }
+        return true;
+    }
+
+    private void parsePlaylist(String song) {
+        System.out.println("Found a playlist, parsing");
+        try {
+            playerManager.loadItem(song, new AudioLoadResultHandler() {
+                @Override
+                public void trackLoaded(AudioTrack track) {
+                }
+
+                @Override
+                public void playlistLoaded(AudioPlaylist playlist) {
+                    AutoPlay.remove(song);
+                    for (AudioTrack tr : playlist.getTracks()) {
+                        String uri = tr.getInfo().uri;
+                        if (!AutoPlay.contains(uri)) AutoPlay.add(uri);
+                    }
+                    System.out.println("Parsed playlist with " + playlist.getTracks().size() + " songs");
+                }
+
+                @Override
+                public void noMatches() {
+                    AutoPlay.remove(song);
+                }
+
+                @Override
+                public void loadFailed(FriendlyException exception) {
+                    AutoPlay.remove(song);
+                }
+            }).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
         }
     }
 
@@ -56,6 +117,7 @@ public class TrackScheduler extends AudioEventAdapter {
 
     private void loadTrack(String randomSong) {
         playerManager.loadItem(randomSong, new AudioLoadResultHandler() {
+
             @Override
             public void trackLoaded(AudioTrack track) {
                 System.out.println("Loaded! " + track.getInfo().title);
@@ -65,11 +127,6 @@ public class TrackScheduler extends AudioEventAdapter {
 
             @Override
             public void playlistLoaded(AudioPlaylist playlist) {
-                for (AudioTrack tr : playlist.getTracks()) {
-                    AutoPlay.remove(randomSong);
-                    String uri = tr.getInfo().uri;
-                    if (!AutoPlay.contains(uri)) AutoPlay.add(uri);
-                }
                 nextTrack();
             }
 
@@ -80,6 +137,7 @@ public class TrackScheduler extends AudioEventAdapter {
 
             @Override
             public void loadFailed(FriendlyException exception) {
+                exception.printStackTrace();
                 nextTrack();
             }
         });

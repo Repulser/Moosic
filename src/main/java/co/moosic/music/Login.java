@@ -1,4 +1,4 @@
-package moosic.music;
+package co.moosic.music;
 
 import com.kaaz.configuration.ConfigurationBuilder;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
@@ -18,7 +18,6 @@ import java.io.File;
 
 
 public class Login {
-    static AudioPlayerManager playerManager;
     static JDA Jda;
     static TrackScheduler scheduler;
 
@@ -34,17 +33,15 @@ public class Login {
                     .setToken(Config.discord_token)
                     .buildBlocking();
             Jda.setEventManager(new AnnotatedEventManager());
-            Jda.addEventListener(new HandleCommands());
+            Jda.addEventListener(new MessageHandler());
             System.out.println("User this url to add me:\n" + "https://discordapp.com/oauth2/authorize?client_id=" + Jda.getSelfUser().getId() + "&scope=bot");
         } catch (LoginException | RateLimitedException | InterruptedException e) {
             e.printStackTrace();
             System.exit(1);
         }
-        if (playerManager == null) {
-            playerManager = new DefaultAudioPlayerManager();
-            AudioSourceManagers.registerRemoteSources(playerManager);
-            System.out.println("Created new player manager");
-        }
+        AudioPlayerManager playerManager = new DefaultAudioPlayerManager();
+        AudioSourceManagers.registerRemoteSources(playerManager);
+        System.out.println("Created new player manager");
         VoiceChannel channel = Jda.getVoiceChannelById(Config.voice_channel_id);
         if (channel == null) {
             System.out.println("Could not find the channel, make sure the ID is correct and that the bot can see it.");
@@ -60,7 +57,7 @@ public class Login {
         }
         AudioPlayer player = playerManager.createPlayer();
         audioManager.setSendingHandler(new AudioPlayerSendHandler(player));
-        scheduler = new TrackScheduler(player);
+        scheduler = new TrackScheduler(player, playerManager);
         player.addListener(scheduler);
         player.setVolume(Config.volume);
     }

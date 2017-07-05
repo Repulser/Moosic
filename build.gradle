@@ -1,25 +1,17 @@
 plugins {
     id 'java'
     id 'application'
-    id 'com.github.johnrengelman.shadow' version '1.2.4'
+    id 'com.github.johnrengelman.shadow' version '2.0.1'
     id 'com.sedmelluq.jdaction' version '1.0.1'
 }
 
 group 'Moosic'
-version '3.0'
+version '4.0'
 
-mainClassName = "moosic.music.Login"
+mainClassName = "co.moosic.music.Login"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-
-sourceSets {
-    main {
-        java {
-            srcDirs = ['src/main']
-        }
-    }
-}
 
 repositories {
     jcenter()
@@ -28,14 +20,22 @@ repositories {
 
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile group: 'com.sedmelluq', name: 'lavaplayer', version: '1.2.39'
-    compile group: 'net.dv8tion', name: 'JDA', version: '3.0.0_202'
-    compile 'com.github.kaaz:configurationbuilder:afbc25a5d2'
+    //Lavaplayer
+    compile group: 'com.sedmelluq', name: 'lavaplayer', version: '1.2.42'
+    //JDA
+    compile group: 'net.dv8tion', name: 'JDA', version: '3.1.1_219'
+    //Configuration builder
+    compile group: 'com.github.kaaz', name: 'configurationbuilder', version: 'afbc25a5d2'
+
 }
 
 task wrapper(type: Wrapper) {
     gradleVersion = '3.5'
+}
+
+compileJava {
+    classpath = sourceSets.main.compileClasspath
+    options.encoding = 'UTF-8'
 }
 
 tasks.withType(JavaCompile) {
@@ -54,4 +54,5 @@ jar {
 
 shadowJar {
     classifier = ""
+    baseName 'moosic'
 }

@@ -1,10 +1,10 @@
-package moosic.music;
+package co.moosic.music;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.playback.AudioFrame;
 import net.dv8tion.jda.core.audio.AudioSendHandler;
 
-class AudioPlayerSendHandler implements AudioSendHandler {
+public class AudioPlayerSendHandler implements AudioSendHandler {
     private final AudioPlayer audioPlayer;
     private AudioFrame lastFrame;
 
@@ -14,13 +14,20 @@ class AudioPlayerSendHandler implements AudioSendHandler {
 
     @Override
     public boolean canProvide() {
-        lastFrame = audioPlayer.provide();
+        if (lastFrame == null) {
+            lastFrame = audioPlayer.provide();
+        }
         return lastFrame != null;
     }
 
     @Override
     public byte[] provide20MsAudio() {
-        return lastFrame.data;
+        if (lastFrame == null) {
+            lastFrame = audioPlayer.provide();
+        }
+        byte[] data = lastFrame != null ? lastFrame.data : null;
+        lastFrame = null;
+        return data;
     }
 
     @Override
