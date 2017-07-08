@@ -32,7 +32,6 @@ public class Login {
             Jda = new JDABuilder(AccountType.BOT)
                     .setToken(Config.discord_token)
                     .buildBlocking();
-            Jda.setEventManager(new AnnotatedEventManager());
             Jda.addEventListener(new MessageHandler());
             System.out.println("User this url to add me:\n" + "https://discordapp.com/oauth2/authorize?client_id=" + Jda.getSelfUser().getId() + "&scope=bot");
         } catch (LoginException | RateLimitedException | InterruptedException e) {

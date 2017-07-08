@@ -9,6 +9,6 @@ build
 bot.cfg
 *.jar
 /database/
-djusers.json
-djservers.json
 *.iml
+*.xml
+out

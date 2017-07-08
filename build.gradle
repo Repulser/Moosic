@@ -50,9 +50,9 @@ artifacts {
 
 jar {
     classifier = "nodeps"
+    baseName 'moosic'
 }
 
 shadowJar {
     classifier = ""
-    baseName 'moosic'
 }
