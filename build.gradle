@@ -21,9 +21,9 @@ repositories {
 
 dependencies {
     //Lavaplayer
-    compile group: 'com.sedmelluq', name: 'lavaplayer', version: '1.2.42'
+    compile group: 'com.sedmelluq', name: 'lavaplayer', version: '1.2.43'
     //JDA
-    compile group: 'net.dv8tion', name: 'JDA', version: '3.1.1_219'
+    compile group: 'net.dv8tion', name: 'JDA', version: '3.3.0_266'
     //Configuration builder
     compile group: 'com.github.kaaz', name: 'configurationbuilder', version: 'afbc25a5d2'
 
