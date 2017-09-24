@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Moosic.iml" filepath="$PROJECT_DIR$/Moosic.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Moosic_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Moosic_main.iml" group="Moosic" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Moosic_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Moosic_test.iml" group="Moosic" />
     </modules>
   </component>
 </project>
