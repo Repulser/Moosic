@@ -122,7 +122,7 @@ public class TrackScheduler extends AudioEventAdapter {
             public void trackLoaded(AudioTrack track) {
                 System.out.println("Loaded! " + track.getInfo().title);
                 player.startTrack(track, false);
-                Login.Jda.getPresence().setGame(Game.of("▶ " + track.getInfo().title));
+                Login.Jda.getPresence().setGame(Game.listening("▶ " + track.getInfo().title));
             }
 
             @Override
