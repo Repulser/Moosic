@@ -13,7 +13,7 @@ public class MessageHandler extends ListenerAdapter {
 
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent e) {
-        if (e.getMessage().getRawContent().toLowerCase().startsWith(Config.command_prefix.toLowerCase() + "np")) {
+        if (e.getMessage().getContentRaw().toLowerCase().startsWith(Config.command_prefix.toLowerCase() + "np")) {
             AudioTrack PlayingTrack = Login.scheduler.player.getPlayingTrack();
             e.getChannel().sendMessage(new EmbedBuilder()
                     .setAuthor("Now Playing", PlayingTrack.getInfo().uri, null)

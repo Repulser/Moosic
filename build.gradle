@@ -6,7 +6,7 @@ plugins {
 }
 
 group 'Moosic'
-version '5.0'
+version '5.1'
 
 mainClassName = "co.moosic.music.Login"
 
@@ -21,18 +21,20 @@ repositories {
 
 dependencies {
     //Lavaplayer
-    compile group: 'com.sedmelluq', name: 'lavaplayer', version: '1.2.43'
+    compile group: 'com.sedmelluq', name: 'lavaplayer', version: '1.2.47'
+    //Nas for audio sending
+    compile group: 'com.sedmelluq', name: 'jda-nas', version: '1.0.6'
     //JDA
-    compile group: 'net.dv8tion', name: 'JDA', version: '3.3.1_280'
+    compile group: 'net.dv8tion', name: 'JDA', version: '3.5.0_335'
     //Configuration builder
-    compile group: 'com.github.kaaz', name: 'configurationbuilder', version: 'afbc25a5d2'
+    compile group: 'com.github.kaaz', name: 'configurationbuilder', version: '0.4'
     //Logback
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
 
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.1'
+    gradleVersion = '4.5'
 }
 
 compileJava {

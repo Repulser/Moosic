@@ -1,6 +1,8 @@
 package co.moosic.music;
 
 import com.kaaz.configuration.ConfigurationBuilder;
+import com.sedmelluq.discord.lavaplayer.jdaudp.NativeAudioSendFactory;
+import com.sedmelluq.discord.lavaplayer.player.AudioConfiguration;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
@@ -9,7 +11,6 @@ import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.VoiceChannel;
-import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import net.dv8tion.jda.core.managers.AudioManager;
 
 import javax.security.auth.login.LoginException;
@@ -22,23 +23,33 @@ public class Login {
 
     public static void main(String args[]) {
         try {
-            new ConfigurationBuilder(Config.class, new File("bot.cfg")).build();
+            new ConfigurationBuilder(Config.class, new File("bot.cfg")).build(true);
         } catch (Exception exc) {
             exc.printStackTrace();
             System.exit(1);
         }
         try {
-            Jda = new JDABuilder(AccountType.BOT)
-                    .setToken(Config.discord_token)
-                    .buildBlocking();
+            if (isNas()) {
+                System.out.println("Enabling native audio sending");
+                Jda = new JDABuilder(AccountType.BOT)
+                        .setToken(Config.discord_token)
+                        .setAudioSendFactory(new NativeAudioSendFactory())
+                        .buildBlocking();
+            } else {
+                Jda = new JDABuilder(AccountType.BOT)
+                        .setToken(Config.discord_token)
+                        .buildBlocking();
+            }
             Jda.addEventListener(new MessageHandler());
-            System.out.println("User this url to add me:\n" + "https://discordapp.com/oauth2/authorize?client_id=" + Jda.getSelfUser().getId() + "&scope=bot");
-        } catch (LoginException | RateLimitedException | InterruptedException e) {
+            System.out.println("Use this url to add me:\n" + "https://discordapp.com/oauth2/authorize?client_id=" + Jda.getSelfUser().getId() + "&scope=bot");
+        } catch (LoginException | InterruptedException e) {
             e.printStackTrace();
             System.exit(1);
         }
         AudioPlayerManager playerManager = new DefaultAudioPlayerManager();
         AudioSourceManagers.registerRemoteSources(playerManager);
+        AudioSourceManagers.registerLocalSource(playerManager);
+        playerManager.getConfiguration().setResamplingQuality(AudioConfiguration.ResamplingQuality.HIGH);
         System.out.println("Created new player manager");
         VoiceChannel channel = Jda.getVoiceChannelById(Config.voice_channel_id);
         if (channel == null) {
@@ -58,5 +69,13 @@ public class Login {
         scheduler = new TrackScheduler(player, playerManager);
         player.addListener(scheduler);
         player.setVolume(Config.volume);
+    }
+
+    private static boolean isNas() {
+        String os = System.getProperty("os.name");
+        return (os.contains("Windows") || os.contains("Linux"))
+                && !System.getProperty("os.arch").equalsIgnoreCase("arm")
+                && !System.getProperty("os.arch").equalsIgnoreCase("arm-linux");
+
     }
 }

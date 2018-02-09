@@ -24,11 +24,6 @@ public class TrackScheduler extends AudioEventAdapter {
     private AudioPlayerManager playerManager;
     private List<String> AutoPlay = new ArrayList<>();
     private final Random RANDOM = new Random();
-    //Thanks sedmelluq
-    private static final Pattern[] playlistPatterns = new Pattern[]{
-            Pattern.compile("^((PL|LL|FL|UU)[a-zA-Z0-9_-]+)$"),
-            Pattern.compile("^(?:http://|https://|)(?:www\\.|)youtube.com/playlist\\?list=((PL|LL|FL|UU)[a-zA-Z0-9_-]+)(?:\\?.*|&.*|)$")
-    };
 
     TrackScheduler(AudioPlayer player, AudioPlayerManager playerManager) {
         try (Scanner scanner = new Scanner(new File("songs.txt"))) {
@@ -53,6 +48,10 @@ public class TrackScheduler extends AudioEventAdapter {
             if (isPlaylist(song)) {
                 parsePlaylist(song);
             }
+        }
+        if (AutoPlay.isEmpty()) {
+            System.out.println("No supported songs found!");
+            System.exit(1);
         }
         System.out.println(AutoPlay.size() + " songs loaded, starting");
     }
@@ -122,7 +121,7 @@ public class TrackScheduler extends AudioEventAdapter {
             public void trackLoaded(AudioTrack track) {
                 System.out.println("Loaded! " + track.getInfo().title);
                 player.startTrack(track, false);
-                Login.Jda.getPresence().setGame(Game.of("▶ " + track.getInfo().title));
+                Login.Jda.getPresence().setGame(Game.playing("▶ " + track.getInfo().title));
             }
 
             @Override
