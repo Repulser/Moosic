@@ -34,7 +34,7 @@ This is the file that has all of the configurations that we need.
 ##### **Edit `bot.cfg`.**
 > You will need a program like *Notepad++* to edit `.cfg` files. You can download *Nodepad++* [here](https://notepad-plus-plus.org/download/v7.6.6.html).
 
-Follow the guide below to change each entry:
+Follow the guide below to change each entry: 
 `command_prefix` The prefix for the bot. There is only one command, `np`.
 `discord_token` The Discord bot token. If you don't know what this is, [check here](https://gist.github.com/noahmarshall12/4921d9fe94c209f700b7c1d43718182b).
 `voice_channel_id` The ID of the voice channel you want the bot to play music in.
