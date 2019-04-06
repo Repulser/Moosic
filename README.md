@@ -28,10 +28,10 @@ unzip moosic.zip
 ### Configuring the bot
 Now, it's time to edit the bot config. We suggest doing this with an FTP client.
 
-**First, find the file named `bot.cfg`.**
+##### **First, find the file named `bot.cfg`.**
 This is the file that has all of the configurations that we need.
 
-**Edit `bot.cfg`.**
+##### **Edit `bot.cfg`.**
 > You will need a program like *Notepad++* to edit `.cfg` files. You can download *Nodepad++* [here](https://notepad-plus-plus.org/download/v7.6.6.html).
 
 Follow the guide below to change each entry:
@@ -40,7 +40,7 @@ Follow the guide below to change each entry:
 `voice_channel_id` The ID of the voice channel you want the bot to play music in.
 `volume` How loud the music plays in the voice channel. `50` is reccomened for the least amount of lag.
 
-**Start a screen.**
+### **Start a screen.**
 To keep your bot running, even when you close your SSH connection, we're going to install `screen`.
 Run the command below to install `screen`.
 ```
@@ -52,13 +52,13 @@ After installing screen on your remote systems, start the screen session:
 screen
 ```
 
-**Start the bot.**
+### **Start the bot.**
 Run the command below to run the bot:
 ```
 java -jar moosic.jar
 ```
 
-**Detatch from the screen.**
+### **Detatch from the screen.**
 The last (and one of the most important steps) to keep your bot running.
 Press **"Ctrl-A"**, then **"D"**.
 You should see a message like below:
@@ -68,5 +68,5 @@ You should see a message like below:
 
 You can now close your SSH connection.
 
-**You're done!**
+### **You're done!**
 That's it! You're bot should now be online and playing music.
