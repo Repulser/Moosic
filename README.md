@@ -36,14 +36,11 @@ This is the file that has all of the configurations that we need.
 
 Follow the guide below to change each entry:
 
-`command_prefix` The prefix for the bot. There is only one command, `np`.
-
-`discord_token` The Discord bot token. If you don't know what this is, [check here]
+command_prefix : The prefix for the bot. There is only one command, `np`.
+discord_token : The Discord bot token. If you don't know what this is, [check here]
 (https://gist.github.com/noahmarshall12/4921d9fe94c209f700b7c1d43718182b).
-
-`voice_channel_id` The ID of the voice channel you want the bot to play music in.
-
-`volume` How loud the music plays in the voice channel. `50` is reccomened for the least amount of lag.
+voice_channel_id : The ID of the voice channel you want the bot to play music in.
+volume : How loud the music plays in the voice channel. `50` is reccomened for the least amount of lag.
 
 ### **Start a screen.**
 To keep your bot running, even when you close your SSH connection, we're going to install `screen`.
