@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '2.0.1'
-    id 'com.sedmelluq.jdaction' version '1.0.2'
 }
 
 group 'Moosic'
@@ -21,11 +20,11 @@ repositories {
 
 dependencies {
     //Lavaplayer
-    compile group: 'com.sedmelluq', name: 'lavaplayer', version: '1.2.47'
+    compile group: 'com.sedmelluq', name: 'lavaplayer', version: '1.3.20'
     //Nas for audio sending
     compile group: 'com.sedmelluq', name: 'jda-nas', version: '1.0.6'
     //JDA
-    compile group: 'net.dv8tion', name: 'JDA', version: '3.5.0_335'
+    compile group: 'net.dv8tion', name: 'JDA', version: '3.8.3_464'
     //Configuration builder
     compile group: 'com.github.kaaz', name: 'configurationbuilder', version: '0.4'
     //Logback
@@ -34,7 +33,7 @@ dependencies {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.5'
+    gradleVersion = '4.9'
 }
 
 compileJava {

@@ -21,7 +21,7 @@ public class Login {
     static JDA Jda;
     static TrackScheduler scheduler;
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         try {
             new ConfigurationBuilder(Config.class, new File("bot.cfg")).build(true);
         } catch (Exception exc) {
@@ -33,12 +33,11 @@ public class Login {
                 System.out.println("Enabling native audio sending");
                 Jda = new JDABuilder(AccountType.BOT)
                         .setToken(Config.discord_token)
-                        .setAudioSendFactory(new NativeAudioSendFactory())
-                        .buildBlocking();
+                        .setAudioSendFactory(new NativeAudioSendFactory()).build().awaitReady();
             } else {
                 Jda = new JDABuilder(AccountType.BOT)
                         .setToken(Config.discord_token)
-                        .buildBlocking();
+                        .build().awaitReady();
             }
             Jda.addEventListener(new MessageHandler());
             System.out.println("Use this url to add me:\n" + "https://discordapp.com/oauth2/authorize?client_id=" + Jda.getSelfUser().getId() + "&scope=bot");
