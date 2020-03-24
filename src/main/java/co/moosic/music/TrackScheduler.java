@@ -8,7 +8,7 @@ import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
-import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.api.entities.Activity;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -121,7 +121,7 @@ public class TrackScheduler extends AudioEventAdapter {
             public void trackLoaded(AudioTrack track) {
                 System.out.println("Loaded! " + track.getInfo().title);
                 player.startTrack(track, false);
-                Login.Jda.getPresence().setGame(Game.playing("▶ " + track.getInfo().title));
+                Login.Jda.getPresence().setActivity(Activity.playing("▶ " + track.getInfo().title));
             }
 
             @Override

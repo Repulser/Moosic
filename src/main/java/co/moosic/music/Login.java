@@ -7,11 +7,12 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
-import net.dv8tion.jda.core.AccountType;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.entities.VoiceChannel;
-import net.dv8tion.jda.core.managers.AudioManager;
+import net.dv8tion.jda.api.AccountType;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.api.managers.AudioManager;
+
 
 import javax.security.auth.login.LoginException;
 import java.io.File;
@@ -31,12 +32,11 @@ public class Login {
         try {
             if (isNas()) {
                 System.out.println("Enabling native audio sending");
-                Jda = new JDABuilder(AccountType.BOT)
-                        .setToken(Config.discord_token)
-                        .setAudioSendFactory(new NativeAudioSendFactory()).build().awaitReady();
+                Jda = JDABuilder.createDefault(Config.discord_token)
+                        .setAudioSendFactory(new NativeAudioSendFactory())
+                        .build().awaitReady();
             } else {
-                Jda = new JDABuilder(AccountType.BOT)
-                        .setToken(Config.discord_token)
+                Jda = JDABuilder.createDefault(Config.discord_token)
                         .build().awaitReady();
             }
             Jda.addEventListener(new MessageHandler());
