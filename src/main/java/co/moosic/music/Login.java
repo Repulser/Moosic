@@ -40,7 +40,7 @@ public class Login {
                         .build().awaitReady();
             }
             Jda.addEventListener(new MessageHandler());
-            System.out.println("Use this url to add me:\n" + "https://discordapp.com/oauth2/authorize?client_id=" + Jda.getSelfUser().getId() + "&scope=bot");
+            System.out.println("Use this url to add me:\n" + "https://discord.com/oauth2/authorize?client_id=" + Jda.getSelfUser().getId() + "&scope=bot");
         } catch (LoginException | InterruptedException e) {
             e.printStackTrace();
             System.exit(1);
