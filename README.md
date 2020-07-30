@@ -8,6 +8,4 @@ Once setup, moosic will join the designated voice channel and play songs randoml
 ## Instructions
 **First setup your bot by following the guide [Here](https://github.com/Repulser/Moosic/wiki/Setting-up-the-bot-for-the-first-time)**
 
-You can host the bot for free by following [this](https://github.com/Repulser/Moosic/wiki/Hosting-on-heroku-for-free) guide
-
-**Or host it yourself by following [this](https://github.com/Repulser/Moosic/wiki/Running-the-bot) guide.**
+**Then setup the hosting by following [this](https://github.com/Repulser/Moosic/wiki/Running-the-bot) guide.**
