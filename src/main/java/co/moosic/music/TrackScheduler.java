@@ -23,6 +23,7 @@ public class TrackScheduler extends AudioEventAdapter {
     AudioPlayer player;
     private AudioPlayerManager playerManager;
     private List<String> AutoPlay = new ArrayList<>();
+    private List<String> AutoDone = new ArrayList<>();
     private final Random RANDOM = new Random();
     private int lastSongIngex = -1;
 
@@ -111,13 +112,18 @@ public class TrackScheduler extends AudioEventAdapter {
 
     private String getRandomSong() {
         synchronized (RANDOM) {
-            int newIndex = RANDOM.nextInt(AutoPlay.size());
-            while (newIndex == lastSongIngex && AutoPlay.size() > 1) {
-                newIndex = RANDOM.nextInt(AutoPlay.size());
+            if (AutoPlay.isEmpty()) {
+                System.out.println("Copying songs back into queue for next cycle");
+                for (String nextTrack : AutoDone) {
+                    AutoPlay.add(nextTrack);
+                }
+                AutoDone.clear();
             }
-
-            lastSongIngex = newIndex;
-            return AutoPlay.get(newIndex);
+            int trackPicked = RANDOM.nextInt(AutoPlay.size());
+            String pickedTrack = AutoPlay.get(trackPicked);
+            AutoDone.add(pickedTrack);
+            AutoPlay.remove(trackPicked);
+            return pickedTrack;
         }
     }
 
